@@ -1,12 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, Button } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+import CustomButton from "../styles/CustomButton";
 
 const HomeScreen = ({ navigation }) => {
+  const buttonOnPressEvent = () => {
+    navigation.navigate("SignIn");
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/favicon.png")} />
       <Text style={styles.title}>Welcome To React Native Dev</Text>
-      <Button title="Next" onPress={() => navigation.navigate("SignIn")} />
+      <CustomButton title="Next ->" onPress={buttonOnPressEvent} />
     </View>
   );
 };
@@ -15,7 +20,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 100,
+    paddingTop: 100,
   },
   image: {
     width: 100,
@@ -29,6 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#000",
+    marginBottom: 20,
   },
 });
 

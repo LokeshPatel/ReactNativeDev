@@ -1,9 +1,20 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { View, Text, StyleSheet, TextInput, Image } from "react-native";
+import CustomButton from "../styles/CustomButton";
 
 export default SignInScreen = () => {
+  const buttonOnPressEventForSignIn = () => {
+    console.log("SignIn");
+  };
+
+  const buttonOnPressEventForSignUp = () => {
+    console.log("SignUp");
+  };
+
   return (
     <View style={styles.container}>
+      <Image source={require(`../assets/favicon.png`)} />
+      <Text style={styles.text}>Sign in with active login details</Text>
       <TextInput value="" style={styles.input} placeholder="User Name" />
       <TextInput
         value=""
@@ -11,6 +22,8 @@ export default SignInScreen = () => {
         placeholder="Password"
         secureTextEntry
       />
+      <CustomButton title="Sign-In" onPress={buttonOnPressEventForSignIn} />
+      <CustomButton title="Sign-Up" onPress={buttonOnPressEventForSignUp} />
     </View>
   );
 };
@@ -21,6 +34,7 @@ const styles = StyleSheet.create({
     padding: 24,
     justifyContent: "center",
     backgroundColor: "#fff",
+    alignItems: "center",
   },
   title: {
     fontSize: 28,
@@ -35,7 +49,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
-    marginBottom: 16,
+    marginTop: 8,
+    marginBottom: 8,
     fontSize: 16,
+    width: 300,
+  },
+  text: {
+    padding: 8,
+    fontSize: 14,
+    fontStyle: "bold",
   },
 });
