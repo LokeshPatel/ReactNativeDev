@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import CustomButton from "../styles/CustomButton";
+import DevButton from "../components/DevButton";
 
 const HomeScreen = ({ navigation }) => {
   const buttonOnPressEvent = () => {
@@ -11,7 +11,12 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/favicon.png")} />
       <Text style={styles.title}>Welcome To React Native Dev</Text>
-      <CustomButton title="Next ->" onPress={buttonOnPressEvent} />
+      <DevButton
+        style={styles.button}
+        title="Next"
+        onPress={buttonOnPressEvent}
+        iconName="arrow-forward-circle-outline"
+      />
     </View>
   );
 };
@@ -35,6 +40,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000",
     marginBottom: 20,
+  },
+  button: {
+    marginTop: 100,
   },
 });
 
