@@ -4,15 +4,46 @@ import DevButton from "../components/DevButton";
 import InputText from "../components/InputText";
 
 export default SignInScreen = ({ navigation }) => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  // Varaible handle values and error message
+  const [signInText, setSignInText] = useState({
+    emailid: "",
+    password: "",
+    errors: {},
+  });
 
-  const buttonOnPressEventForSignIn = ({ title }) => {
-    navigation.navigate("Dashboard");
+  // Handle Input Text Field values and error message
+  const handleTextInput = (field, value) => {
+    setSignInText((preValue) => ({
+      ...preValue,
+      [field]: value,
+      errors: { ...preValue.errors, [field]: "" }, // clear error on change
+    }));
   };
 
-  const buttonOnPressEventForSignUp = ({ title }) => {
-    navigation.navigate("SignUp");
+  // Validation Input text field handle
+  const validateInputText = () => {
+    const errorMsg = {};
+    if (!signInText.emailid.includes("@"))
+      errorMsg.emailid = "Enter a valid email";
+    if (signInText.password.length < 6)
+      errorMsg.password = "Minimum 6 characters";
+    if (Object.keys(errorMsg).length > 0) {
+      setSignInText((preValue) => ({
+        ...preValue,
+        errors: errorMsg,
+      }));
+      return false;
+    }
+    return true;
+  };
+
+  // Button events for Button OnPres sEvent and
+  const buttonOnPressEvent = (action) => {
+    if (action == "signIn" && validateInputText()) {
+      navigation.navigate("Dashboard", { emailid: signInText.emailid });
+    } else if (action == "signUp") {
+      navigation.navigate("SignUp");
+    }
   };
 
   return (
@@ -22,23 +53,35 @@ export default SignInScreen = ({ navigation }) => {
         <Text style={styles.text}>Sign in with active login details</Text>
 
         <InputText
-          value={username}
+          value={signInText.emailid}
           placeholder="Email"
-          onChangeText={setUserName}
+          onChangeText={(text) => handleTextInput("emailid", text)}
           iconName="mail-outline"
+          error={signInText.errors?.emailid}
         />
 
         <InputText
-          value={password}
+          value={signInText.password}
           placeholder="Password"
           secureTextEntry
-          onChangeText={setPassword}
+          onChangeText={(text) => handleTextInput("password", text)}
           iconName="lock-closed-outline"
           showToggle={true}
+          error={signInText.errors?.password}
         />
 
-        <DevButton title="Sign In" onPress={buttonOnPressEventForSignIn} />
-        <DevButton title="Sign Up" onPress={buttonOnPressEventForSignUp} />
+        <DevButton
+          title="Sign In"
+          onPress={() => {
+            buttonOnPressEvent("signIn");
+          }}
+        />
+        <DevButton
+          title="Sign Up"
+          onPress={() => {
+            buttonOnPressEvent("signUp");
+          }}
+        />
       </View>
     </View>
   );

@@ -65,6 +65,7 @@ const InputText = ({
           </TouchableOpacity>
         )}
       </View>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 };
@@ -93,6 +94,12 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginHorizontal: 5,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginTop: 4,
+    marginLeft: 4,
   },
 });
 
